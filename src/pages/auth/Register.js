@@ -134,7 +134,7 @@ export default class Register extends PureComponent {
                 <ToastContainer />
                 <div className="login-box container-center m-0">
                     <div className="login-logo">
-                        <a className="stm-cursor"><b>STD</b>Management</a>
+                        <a className="stm-cursor"><b>User</b>Management</a>
                     </div>
                     <div className="login-box-body">
                         <p className="login-box-msg">Sign up to start your session</p>

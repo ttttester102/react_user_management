@@ -118,6 +118,24 @@ export class Storage {
         }
     }
 
+    static login = (requestBody, cb) => {
+        const { email, password } = requestBody;
+
+        let stored_data = this.getUser(ROOT_USER) ? this.getUser(ROOT_USER) : [];
+
+        if (stored_data) {
+
+            const index = stored_data.findIndex(ele => ele.email.toUpperCase() === email.toUpperCase() && ele.password === password);
+            if (index !== -1) {
+                localStorage.setItem(USER_DATA, JSON.stringify(stored_data[index]));
+                cb(SUCCESS, stored_data[index]);
+                return;
+            }
+
+            cb(NO_DATA, {});
+        }
+    }
+
     static clearUser = (key) => {
         return localStorage.removeItem(key);
     }

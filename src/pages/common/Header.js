@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { USER_DATA } from '../../storage/Constant';
+import { USER_DATA, AUTH_CHANGE } from '../../storage/Constant';
 import { Storage } from '../../storage/Storage';
 
 export default class Header extends PureComponent {
@@ -28,6 +28,16 @@ export default class Header extends PureComponent {
         const { history } = this.props;
 
         history.push(page);
+    }
+
+    logout = () => {
+        const { eventEmitter } = this.props;
+
+        eventEmitter.emit(AUTH_CHANGE, {
+            isLoggedIn: false
+        });
+        Storage.clearUser(USER_DATA);
+        this.openPage("/");
     }
 
     render() {
@@ -62,7 +72,7 @@ export default class Header extends PureComponent {
                                             <a className="btn btn-default btn-flat stm-cursor" onClick={this.openPage.bind(this, '/home')}>Profile</a>
                                         </div>
                                         <div className="pull-right">
-                                            <a className="btn btn-default btn-flat stm-cursor">Sign out</a>
+                                            <a className="btn btn-default btn-flat stm-cursor" onClick={this.logout.bind(this)}>Sign out</a>
                                         </div>
                                     </li>
                                 </ul>

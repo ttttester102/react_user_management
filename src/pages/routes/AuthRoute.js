@@ -13,11 +13,13 @@ export default class AuthRoute extends PureComponent {
             <Switch>
                 {
                     authRoutes.map((ele, index) => {
+                        const { component: Component } = ele;
+
                         return (
                             <Route
                                 path={ele.path}
                                 key={`auth-route-${index}`}
-                                component={ele.component}
+                                render={(props) => <Component {...props} {...this.props}/>}
                                 exact={ele.exact} />
                         );
                     })

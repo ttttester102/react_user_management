@@ -43,6 +43,7 @@ export default class EditProfile extends PureComponent {
     _getSubPageHeader = () => {
         const { screenType } = this.props;
         const { userData } = this.state;
+        if(!userData) return;
 
         switch (screenType) {
             case ADD_USER:

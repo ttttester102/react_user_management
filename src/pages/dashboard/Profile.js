@@ -43,7 +43,8 @@ export default class Profile extends PureComponent {
     }
 
     render() {
-        const { userData: { id } } = this.state;
+        const { userData } = this.state;
+        const id = userData && userData.id ? userData.id : '';
         
         return (
             <React.Fragment>

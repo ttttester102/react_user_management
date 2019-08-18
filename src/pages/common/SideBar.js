@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Storage } from '../../storage/Storage';
-import { USER_DATA } from '../../storage/Constant';
+import { USER_DATA, AUTH_CHANGE } from '../../storage/Constant';
 
 export default class SideBar extends PureComponent {
     static propTypes = {
@@ -22,6 +22,16 @@ export default class SideBar extends PureComponent {
         const { userData } = this.state;
 
         return userData ? userData.name.toUpperCase() : "No name available.";
+    }
+
+    logout = () => {
+        const { eventEmitter } = this.props;
+
+        eventEmitter.emit(AUTH_CHANGE, {
+            isLoggedIn: false
+        });
+        Storage.clearUser(USER_DATA);
+        this.openPage("/");
     }
 
     render() {
@@ -45,7 +55,7 @@ export default class SideBar extends PureComponent {
                                 <i className="glyphicon glyphicon-user"></i> <span>Profile</span>
                             </a>
                         </li>
-                        <li>
+                        <li onClick={this.logout.bind(this)}>
                             <a className="stm-cursor">
                                 <i className="glyphicon glyphicon-log-out"></i> <span>Logout</span>
                             </a>
